@@ -1,3 +1,3 @@
-# rmr-porter
+# [rmr-porter](https://github.com/davidfmiller/rmr-porter)
 
-[repo](https://davidfmiller.github.io/rmr-porter).
+[See it in action](https://davidfmiller.github.io/rmr-porter).
