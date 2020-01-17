@@ -22,25 +22,27 @@
 
   /**
 
-     @param options {Object} - selectors and callbacks to invoke when the elements corresponding to those selectors
+     @param options {Object} - selector/callback pairs to invoke when the elements corresponding to the selectors enter the viewport
    */
   const Porter = function(options) {
 
     for (const i in options) {
       if (RMR.Object.has(options, i)) {
 
-        const n = RMR.Node.get(i);
-        if (!n) {
-          console.error('Invalid porter node', i);
+        const nodes = RMR.Node.getAll(i);
+        if (! nodes.length) {
+          console.error('Invalid porter selector', i);
           continue;
         }
 
-        // element has entered the viewport for the first time, invoke callback
-        if (! n.getAttribute(ATTRS.attr)) {
-          options[i](n);
-          n.setAttribute(ATTRS.attr, true);
-        }
+        nodes.map((n) => {
 
+          // element has entered the viewport for the first time, invoke callback
+          if (! n.getAttribute(ATTRS.attr)) {
+            options[i](n);
+            n.setAttribute(ATTRS.attr, true);
+          }
+        });
       }
     }
   };
