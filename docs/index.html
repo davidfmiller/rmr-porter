@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>rmr-porter</title>
+  <link rel="stylesheet" type="text/css" href="https://davidfmiller.github.io/man/man.css">
+
+<!--  <link rel="stylesheet" type="text/css" href="./build/rmr-drops.css?bust=0">-->
+<!--  <link rel="stylesheet" type="text/css" href="./build/index.css?bust=0">-->
+
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="mask-icon" href="favicon.svg" color="#d0021b">
+
+  <meta property="og:title" content="rmr-porter">
+  <meta property="og:description" content="Viewporter">
+  <meta property="og:email" content="davidfmiller@me.com">
+  <meta property="og:url" content="https://davidfmiller.github.io/rmr-porter">
+  <meta property="fb:admins" content="eldaverino">
+  <meta property="og:image" content="./og-image.png">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+  <div id="man">
+    <h1><a href="https://github.com/davidfmiller/rmr-porter">porter</a></h1>
+  </div>
+
+  <script src="https://davidfmiller.github.io/man/man.js"></script>
+  <script src="./build/rmr-porter.bundle.js"></script>
+  <script>
+  document.addEventListener('DOMContentLoaded', () => {
+    new Porter({ 'h1' : (node) => { console.log(node); }} );
+  });
+  </script>
+
+</html>
