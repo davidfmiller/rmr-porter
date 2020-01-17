@@ -18,12 +18,23 @@
   TOUCH = RMR.Browser.isTouch();
 
   /**
-    
+
      @param options {Object} - 
-   
+ 
    */
   const Porter = function(options) {
-    console.log(options);
+
+    for (const i in options) {
+      if (RMR.Object.has(options, i)) {
+
+        const n = RMR.Node.get(i);
+        if (!n) {
+          console.error('Invalid node in porter', i);
+          continue;
+        }
+//        options[i](n);
+      }
+    }
   };
 
   module.exports = Porter;
