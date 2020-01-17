@@ -39,7 +39,7 @@
 
     new Porter({
       'h1' : (node) => { console.log(node); },
-      '#man > p' : (node) => { alert(node); }
+      '#man > p' : (node) => { node.style.color = 'green'; }
     });
   });
   </script>

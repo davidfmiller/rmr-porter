@@ -32,7 +32,7 @@
           console.error('Invalid node in porter', i);
           continue;
         }
-//        options[i](n);
+        options[i](n);
       }
     }
   };
