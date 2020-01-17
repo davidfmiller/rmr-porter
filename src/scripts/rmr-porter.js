@@ -13,14 +13,16 @@
 
   const
   RMR = require('rmr-util'),
+  ATTRS = {
+    'class': 'rmr-ported'
+  };
 
   // being viewed on a touch device?
-  TOUCH = RMR.Browser.isTouch();
+  // TOUCH = RMR.Browser.isTouch();
 
   /**
 
-     @param options {Object} - 
- 
+     @param options {Object} - selectors and callbacks to invoke when the elements corresponding to those selectors
    */
   const Porter = function(options) {
 
@@ -29,10 +31,16 @@
 
         const n = RMR.Node.get(i);
         if (!n) {
-          console.error('Invalid node in porter', i);
+          console.error('Invalid porter node', i);
           continue;
         }
-        options[i](n);
+
+        // element has entered the viewport for the first time, invoke callback
+        if (! n.classList.contains('rmr-ported')) {
+          options[i](n);
+          n.classList.add('rmr-ported');
+        }
+
       }
     }
   };
