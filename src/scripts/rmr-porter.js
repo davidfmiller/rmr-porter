@@ -14,7 +14,7 @@
   const
   RMR = require('rmr-util'),
   ATTRS = {
-    'class': 'rmr-ported'
+    attr: 'data-rmr-ported'
   };
 
   // being viewed on a touch device?
@@ -36,9 +36,9 @@
         }
 
         // element has entered the viewport for the first time, invoke callback
-        if (! n.classList.contains('rmr-ported')) {
+        if (! n.getAttribute(ATTRS.attr)) {
           options[i](n);
-          n.classList.add('rmr-ported');
+          n.setAttribute(ATTRS.attr, true);
         }
 
       }
