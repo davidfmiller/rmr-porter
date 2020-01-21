@@ -14,7 +14,7 @@
   const
   RMR = require('rmr-util'),
   ATTRS = {
-    heightOffset: 200,
+    heightOffset: 0,
     attr: 'data-rmr-ported'
   },
   inView = function(elem) {
@@ -40,17 +40,19 @@
 
     const
       elements = args,
-      self = this;
-    let nodes = [];
+      self = this,
+      listeners = {};
 
     const viewChange = function() {
 
+      // number of elements that still need to be 
+      let unportedCount = 0;
       for (const i in elements) {
         if (! RMR.Object.has(elements, i)) {
           continue;
         }
 
-        nodes = RMR.Node.getAll(i);
+        const nodes = RMR.Node.getAll(i);
         if (! nodes.length) {
           delete elements[i];
           console.error('Invalid porter selector', i);
@@ -59,25 +61,37 @@
 
         nodes.map((n) => {
           if (! n.getAttribute(ATTRS.attr)) {
-            // element has entered the viewport for the first time, invoke callback
+            // element has entered the viewport for the first time, invoke callback & set data attribute
             if (inView(n)) {
               elements[i](n);
               n.setAttribute(ATTRS.attr, true);
+
+            // if it's not in view then make note 
+            } else {
+              unportedCount++;
             }
           }
         });
       }
+
+      // if all elements of interest have been ported then remove listeners
+      if (unportedCount == 0) {
+        window.removeEventListener('scroll', listeners.scroll);
+        window.removeEventListener('resize', listeners.resize);
+        delete listeners.scroll;
+        delete listeners.resize;
+      } 
     };
 
-    addEventListener('scroll', viewChange, false); 
-    addEventListener('resize', viewChange, false);
+    listeners.scroll = window.addEventListener('scroll', viewChange, false); 
+    listeners.resize = window.addEventListener('resize', viewChange, false);
 
     for (const i in elements) {
       if (! RMR.Object.has(elements, i)) {
         continue;
       }
 
-      nodes = RMR.Node.getAll(i);
+      const nodes = RMR.Node.getAll(i);
       if (! nodes.length) {
         delete elements[i];
         console.error('Invalid porter selector', i);
@@ -86,13 +100,19 @@
 
       nodes.map((n) => {
 
-        addEventListener('load', (function(key, node) {
-
+        if (document.body.classList.contains('rmr-load')) {
           if (inView(node)) {
             elements[key](node);
             node.setAttribute(ATTRS.attr, true);
           }
-        })(i,n), false );
+        } else {
+          window.addEventListener('load', (function(key, node) {
+            if (inView(node)) {
+              elements[key](node);
+              node.setAttribute(ATTRS.attr, true);
+            }
+          })(i,n), false );
+        }
 
       });
     }
