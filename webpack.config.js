@@ -2,7 +2,8 @@
 const
     path = require('path'),
     webpack = require('webpack'),
-    uglifyJsPlugin = require('uglifyjs-3-webpack-plugin');
+    terser = require('terser-webpack-plugin');
+//    uglifyJsPlugin = require('uglifyjs-3-webpack-plugin');
 
 const config = {
   entry: './src/scripts/build.js',
@@ -14,16 +15,19 @@ const config = {
   mode: 'development',
   watch: true,
   plugins : [
-
-    new uglifyJsPlugin({
-      uglifyOptions: {
-        warnings: false,
-        ie8: false,
-        output: {
-          comments: false
-        }
-      }
-    })
+    new terser({
+      extractComments: false,
+      test: /\.js(\?.*)?$/i
+    }),
+//     new uglifyJsPlugin({
+//       uglifyOptions: {
+//         warnings: false,
+//         ie8: false,
+//         output: {
+//           comments: false
+//         }
+//       }
+//     })
   ],
   module: {
     rules: [
