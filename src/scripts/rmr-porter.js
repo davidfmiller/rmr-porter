@@ -73,7 +73,7 @@
 
       // if all elements of interest have been ported then remove listeners
       if (unportedCount == 0) {
-        if (RMR.Object.has(options, 'root') && options.root) {
+        if (options && RMR.Object.has(options, 'root') && options.root) {
           RMR.Node.get(options.root).removeEventListener('scroll', viewChange, false); 
         }
         window.removeEventListener('scroll', viewChange, false);
@@ -81,7 +81,7 @@
       } 
     };
 
-    if (RMR.Object.has(options, 'root') && options.root) {
+    if (options && RMR.Object.has(options, 'root') && options.root) {
       const ancestor = RMR.Node.get(options.root);
       if (! ancestor) {
         console.error('Invalid root provided to rmr-porter: `' + options.root + '`');
