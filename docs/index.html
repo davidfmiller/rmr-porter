@@ -31,7 +31,7 @@
       <p>3</p>
     </div>
 
-    <h1><a href="https://github.com/davidfmiller/rmr-porter">porter</a></h1>
+    <h1><a href="https://github.com/davidfmiller/rmr-porter">rmr-porter</a></h1>
 
     <p data-color="green">green</p>
     <p data-color="red">red</p>
@@ -46,11 +46,15 @@
       '#man > div > p' : (node) => { 
         console.log(node);
       }
-    }, { ancestor: '#man > div'});
+    }, { root: '#man > div'});
 
+    new Porter({
+      'buh' : (node) => { }
+    }, { root: '#man > section'});
 
     new Porter({
       'h1' : (node) => { console.log(node); },
+      '#man > div > p' : (node) => { console.log(node); },
       '#man > p' : (node) => {
         document.body.style.backgroundColor = node.getAttribute('data-color');
       }
