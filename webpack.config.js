@@ -16,7 +16,7 @@ const config = {
     new terser({
       extractComments: false,
       test: /\.js(\?.*)?$/i
-    }),
+    })
   ],
   module: {
     rules: [
