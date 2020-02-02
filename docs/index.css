@@ -1,0 +1,22 @@
+body {
+  transition: background-color 0.2s;
+}
+h1 {
+  margin-bottom: 1000px;
+}
+
+#man > p {
+  margin-bottom: 1000px;
+}
+
+#man > div {
+  height: 100px;
+  overflow: auto;
+  background: yellow;
+}
+
+#man > div > p {
+  padding: 200px 0;
+  color: #000;
+  background: brown;
+}

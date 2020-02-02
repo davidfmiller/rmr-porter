@@ -36,14 +36,11 @@
 
      @param options {Object} - selector/callback pairs to invoke when the elements corresponding to the selectors enter the viewport
    */
-  const Porter = function(args) {
+  const Porter = function(args, options) {
 
     const
-      elements = args,
-      self = this,
-      listeners = {};
-
-    const viewChange = function() {
+    elements = args,
+    viewChange = function() {
 
       // number of elements that still need to be 
       let unportedCount = 0;
@@ -76,15 +73,23 @@
 
       // if all elements of interest have been ported then remove listeners
       if (unportedCount == 0) {
-        window.removeEventListener('scroll', listeners.scroll);
-        window.removeEventListener('resize', listeners.resize);
-        delete listeners.scroll;
-        delete listeners.resize;
+        if (RMR.Object.has(options, 'ancestor') && options.ancestor) {
+          RMR.Node.get(options.ancestor).removeEventListener('scroll', viewChange, false); 
+        }
+        window.removeEventListener('scroll', viewChange, false);
+        window.removeEventListener('resize', viewChange, false);
       } 
     };
 
-    listeners.scroll = window.addEventListener('scroll', viewChange, false); 
-    listeners.resize = window.addEventListener('resize', viewChange, false);
+    if (RMR.Object.has(options, 'ancestor') && options.ancestor) {
+      const ancestor = RMR.Node.get(options.ancestor);
+      if (! ancestor) {
+        console.warn('Invalid ancestor provided for `rmr-porter`: `' + options.ancestor + '`');
+      }
+      ancestor.addEventListener('scroll', viewChange, false); 
+    }
+    window.addEventListener('scroll', viewChange, false); 
+    window.addEventListener('resize', viewChange, false);
 
     for (const i in elements) {
       if (! RMR.Object.has(elements, i)) {
@@ -101,9 +106,9 @@
       nodes.map((n) => {
 
         if (document.body.classList.contains('rmr-load')) {
-          if (inView(node)) {
-            elements[key](node);
-            node.setAttribute(ATTRS.attr, true);
+          if (inView(n)) {
+            elements[i](n);
+            n.setAttribute(ATTRS.attr, true);
           }
         } else {
           window.addEventListener('load', (function(key, node) {

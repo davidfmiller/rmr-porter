@@ -5,10 +5,7 @@
 
   <title>rmr-porter</title>
   <link rel="stylesheet" type="text/css" href="https://davidfmiller.github.io/man/man.css">
-  <link rel="stylesheet" type="text/css" href="build/index.css">
-
-<!--  <link rel="stylesheet" type="text/css" href="./build/rmr-drops.css?bust=0">-->
-<!--  <link rel="stylesheet" type="text/css" href="./build/index.css?bust=0">-->
+  <link rel="stylesheet" type="text/css" href="index.css">
 
   <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
   <link rel="icon" href="favicon.ico" type="image/x-icon">
@@ -27,7 +24,15 @@
 </head>
 <body>
   <div id="man">
+
+    <div>
+      <p>1</p>
+      <p>2</p>
+      <p>3</p>
+    </div>
+
     <h1><a href="https://github.com/davidfmiller/rmr-porter">porter</a></h1>
+
     <p data-color="green">green</p>
     <p data-color="red">red</p>
   </div>
@@ -37,13 +42,19 @@
   <script>
   document.addEventListener('DOMContentLoaded', () => {
     window.Man({ pre: true });
+    new Porter({
+      '#man > div > p' : (node) => { 
+        console.log(node);
+      }
+    }, { ancestor: '#man > div'});
+
 
     new Porter({
       'h1' : (node) => { console.log(node); },
       '#man > p' : (node) => {
         document.body.style.backgroundColor = node.getAttribute('data-color');
       }
-    });
+    }, 'body');
   });
   </script>
 
