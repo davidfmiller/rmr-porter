@@ -13,10 +13,10 @@ const config = {
   mode: 'production',
   watch: true,
   plugins : [
-    new terser({
-      extractComments: false,
-      test: /\.js(\?.*)?$/i
-    })
+//     new terser({
+//       extractComments: false,
+//       test: /\.js(\?.*)?$/i
+//     })
   ],
   module: {
     rules: [
@@ -26,7 +26,7 @@ const config = {
           loader: 'babel-loader',
           options: {
             presets: [
-              ['env']
+              ['es2015']
             ]
           }
         }]
