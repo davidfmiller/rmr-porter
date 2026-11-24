@@ -22,7 +22,7 @@
     "eslint": "^10.0.2",
     "grunt": "^1.1.0",
     "uglify-es": "^3.3.4",
-    "webpack": "^4.42.0"
+    "webpack": "^5.113.0"
   },
   "dependencies": {
     "rmr-util": "1.1.147"
